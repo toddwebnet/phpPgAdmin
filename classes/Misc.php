@@ -12,7 +12,7 @@
 		var $form;
 
 		/* Constructor */
-		function Misc() {
+		function __construct() {
 		}
 
 		/**
@@ -499,6 +499,7 @@
 			// Create a database wrapper class for easy manipulation of the
 			// connection.
 			include_once('./classes/database/' . $_type . '.php');
+			$_type=str_replace('Postgres::','', $_type);
 			$data = new $_type($_connection->conn);
 			$data->platform = $_connection->platform;
 
@@ -540,15 +541,10 @@
 				echo "<head>\n";
 				echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
 				// Theme
-				echo "<link rel=\"stylesheet\" href=\"themes/{$conf['theme']}/global.css\" type=\"text/css\" id=\"csstheme\" />\n";
+				echo "<link rel=\"stylesheet\" href=\"themes/{$conf['theme']}/global.css\" type=\"text/css\" />\n";
 				echo "<link rel=\"shortcut icon\" href=\"images/themes/{$conf['theme']}/Favicon.ico\" type=\"image/vnd.microsoft.icon\" />\n";
 				echo "<link rel=\"icon\" type=\"image/png\" href=\"images/themes/{$conf['theme']}/Introduction.png\" />\n";
 				echo "<script type=\"text/javascript\" src=\"libraries/js/jquery.js\"></script>";
-				echo "<script type=\"text/javascript\">// <!-- \n";
-				echo "$(document).ready(function() { \n";
-				echo "  if (window.parent.frames.length > 1)\n";
-				echo "    $('#csstheme', window.parent.frames[0].document).attr('href','themes/{$conf['theme']}/global.css');\n";
-				echo "}); // --></script>\n";
 				echo "<title>", htmlspecialchars($appName);
 				if ($title != '') echo htmlspecialchars(" - {$title}");
 				echo "</title>\n";
@@ -1015,31 +1011,6 @@
 							'icon'  => 'Columns',
 							'branch'=> true,
 						),
-						'browse' => array(
-							'title' => $lang['strbrowse'],
-							'icon'=>'Columns',
-							'url'   => 'display.php',
-							'urlvars' => array ('subject' => 'table','table' => field('table')),
-							'return' => 'table',
-							'branch'=> true,
-						),
-						'select' => array(
-							'title' => $lang['strselect'],
-							'icon'  => 'Search',
-							'url'   => 'tables.php',
-							'urlvars' => array('subject' => 'table', 'table' => field('table'),'action' => 'confselectrows',),
-							'help'  => 'pg.sql.select',
-						),
-						'insert'=>array(
-							'title' => $lang['strinsert'],
-							'url' => 'tables.php',
-							'urlvars' => array (
-								'action' => 'confinsertrow',
-								'table' => field('table')
-							),
-							'help'  => 'pg.sql.insert',
-							'icon'=>'Operator'
-						),
 						'indexes' => array (
 							'title' => $lang['strindexes'],
 							'url'   => 'indexes.php',
@@ -1116,25 +1087,6 @@
 							'urlvars' => array('subject' => 'view', 'view' => field('view')),
 							'icon'  => 'Columns',
 							'branch'=> true,
-						),
-						'browse' => array(
-							'title' => $lang['strbrowse'],
-							'icon'=>'Columns',
-							'url'   => 'display.php',
-							'urlvars' => array (
-									'action' => 'confselectrows',
-									'return' => 'schema',
-									'subject' => 'view',
-									'view' => field('view')
-							),
-							'branch'=> true,
-						),
-						'select' => array(
-							'title' => $lang['strselect'],
-							'icon'  => 'Search',
-							'url'   => 'views.php',
-							'urlvars' => array('action' => 'confselectrows', 'view' => field('view'),),
-							'help'  => 'pg.sql.select',
 						),
 						'definition' => array (
 							'title' => $lang['strdefinition'],
@@ -1734,14 +1686,13 @@
 				$max_page = min($max_page, $pages);
 
 				for ($i = $min_page; $i <= $max_page; $i++) {
-					#if ($i != $page) echo "<a class=\"pagenav\" href=\"?{$url}&amp;page={$i}\">$i</a>\n";
-					if ($i != $page) echo "<a class=\"pagenav\" href=\"display.php?{$url}&amp;page={$i}\">$i</a>\n";
+					if ($i != $page) echo "<a class=\"pagenav\" href=\"?{$url}&amp;page={$i}\">$i</a>\n";
 					else echo "$i\n";
 				}
 				if ($page != $pages) {
 					$temp = $page + 1;
-					echo "<a class=\"pagenav\" href=\"display.php?{$url}&amp;page={$temp}\">{$lang['strnext']}</a>\n";
-					echo "<a class=\"pagenav\" href=\"display.php?{$url}&amp;page={$pages}\">{$lang['strlast']}</a>\n";
+					echo "<a class=\"pagenav\" href=\"?{$url}&amp;page={$temp}\">{$lang['strnext']}</a>\n";
+					echo "<a class=\"pagenav\" href=\"?{$url}&amp;page={$pages}\">{$lang['strlast']}</a>\n";
 				}
 				echo "</p>\n";
 			}
@@ -1893,7 +1844,6 @@
 		 *			$columns = array(
 		 *				column_id => array(
 		 *					'title' => Column heading,
-		 * 					'class' => The class to apply on the column cells,
 		 *					'field' => Field name for $tabledata->fields[...],
 		 *					'help'  => Help page for this column,
 		 *				), ...
@@ -1967,14 +1917,6 @@
 
 				echo "<table>\n";
 				echo "<tr>\n";
-
-                // Handle cases where no class has been passed 
-                if (isset($column['class'])) {
-			        $class = $column['class'] !== '' ? " class=\"{$column['class']}\"":'';
-                } else {
-                    $class = '';
-                }
-
 				// Display column headings
 				if ($has_ma) echo "<th></th>";
 				foreach ($columns as $column_id => $column) {
@@ -1983,7 +1925,7 @@
 							if (sizeof($actions) > 0) echo "<th class=\"data\" colspan=\"", count($actions), "\">{$column['title']}</th>\n";
 							break;
 						default:
-							echo "<th class=\"data{$class}\">";
+							echo "<th class=\"data\">";
 							if (isset($column['help']))
 								$this->printHelp($column['title'], $column['help']);
 							else
@@ -2023,23 +1965,15 @@
 									if (isset($action['disable']) && $action['disable'] === true) {
 										echo "<td></td>\n";
 									} else {
-										echo "<td class=\"opbutton{$id} {$class}\">";
+										echo "<td class=\"opbutton{$id}\">";
 										$action['fields'] = $tabledata->fields;
 										$this->printLink($action);
 										echo "</td>\n";
 									}
 								}
 								break;
-							case 'comment':
-								echo "<td class='comment_cell'>";
-								$val = value($column['field'], $tabledata->fields);
-								if (!is_null($val)) {
-									echo htmlentities($val);
-								}
-								echo "</td>";
-								break;
 							default:
-								echo "<td{$class}>";
+								echo "<td>";
 								$val = value($column['field'], $tabledata->fields);
 								if (!is_null($val)) {
 									if (isset($column['url'])) {

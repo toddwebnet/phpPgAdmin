@@ -45,8 +45,8 @@ class Postgres83 extends Postgres84 {
 	 * Constructor
 	 * @param $conn The database connection
 	 */
-	function Postgres83($conn) {
-		$this->Postgres($conn);
+	function __construct($conn) {
+		parent::__construct($conn);
 	}
 
 	// Help functions
@@ -322,39 +322,6 @@ class Postgres83 extends Postgres84 {
 		return 0;
 	}
 
-	// Function functions
-
-	/**
-	 * Returns all details for a particular function
-	 * @param $func The name of the function to retrieve
-	 * @return Function info
-	 */
-	function getFunction($function_oid) {
-		$this->clean($function_oid);
-
-		$sql = "
-			SELECT
-				pc.oid AS prooid, proname, pg_catalog.pg_get_userbyid(proowner) AS proowner,
-				nspname as proschema, lanname as prolanguage, procost, prorows,
-				pg_catalog.format_type(prorettype, NULL) as proresult, prosrc,
-				probin, proretset, proisstrict, provolatile, prosecdef,
-				pg_catalog.oidvectortypes(pc.proargtypes) AS proarguments,
-				proargnames AS proargnames,
-				pg_catalog.obj_description(pc.oid, 'pg_proc') AS procomment,
-				proconfig
-			FROM
-				pg_catalog.pg_proc pc, pg_catalog.pg_language pl,
-				pg_catalog.pg_namespace pn
-			WHERE
-				pc.oid = '{$function_oid}'::oid AND pc.prolang = pl.oid
-				AND pc.pronamespace = pn.oid
-			";
-
-		return $this->selectSet($sql);
-	}
-
-
-	// Capabilities
 	function hasQueryKill() { return false; }
 	function hasDatabaseCollation() { return false; }
 	function hasAlterSequenceStart() { return false; }

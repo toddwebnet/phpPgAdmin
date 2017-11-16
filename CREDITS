@@ -3,7 +3,7 @@ CREDITS
 
 Project Administration & Major Projects
 
-- Robert Treat (xzilla) 
+- Robert Treat
 - Jehan-Guillaume (ioguix) De Rorthais
 
 Translators
@@ -50,7 +50,6 @@ Look & Feel
 - Davey (CSS)
 - ioguix (Cappuccino theme)
 - Tomasz Pala (Gotar theme)
-- Felipe Figueroa (Bootstrap theme)
 
 Contributors
 
@@ -78,7 +77,6 @@ Contributors
 - Kristoffer `spq` Janke
 - Leonardo Augusto Sapiras (Improve phpPgAdmin ergonomy during the GSoC 2010, with ioguix as mentor)
 - Julien Rouhaud, aka. rjuju (nested groups)
-- Felipe Figueroa aka. amenadiel
 
 Third Party Libraries
 
@@ -96,7 +94,7 @@ Project resources:
 
 Ongoing contributors:
 
-- OmniTI ( http://omniti.com/ ) - sponsors developpment as Robert Treat employer
+- Omniti ( http://omniti.com/ ) - sponsors developpment as Robert Treat employer
 - Dalibo ( http://dalibo.com ) - sponsors developpment as Jehan-Guillaume (ioguix) de Rorthais employer
 
 Feature contributors:

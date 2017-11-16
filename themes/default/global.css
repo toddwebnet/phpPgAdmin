@@ -9,12 +9,22 @@ body {
 	margin:	4px;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
 	padding: 0px;
-	font-size: smaller; /*0.8em;*/
+	font-size: small; /*0.8em;*/
+}
+div.logo {
+	background-color: #CECF9C;
+	margin:	0px;
+	padding: 0px;
+	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
+	font-size: small; /* 1em; */
+	border: none;
+	border-bottom: 2px solid #000000;
+	margin-bottom: 2px;
 }
 body.browser {
 	background-color: #efefef;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /*1em;*/
+	font-size: small; /*1em;*/
 	border-right: 1px dashed #c0c0c0;
 }
 body.bottombar {
@@ -22,7 +32,7 @@ body.bottombar {
 	margin:	0px;
 	padding: 0px;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /*1em;*/
+	font-size: small; /*1em;*/
 	text-align: left;
 }
 h2 {
@@ -50,7 +60,7 @@ table.navbar td {
 	background-color: #F3F3E9;
 	text-align: center;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /* 0.9em */
+	font-size: small; /* 0.9em */
 	font-weight: bold;
 }
 table.navbar td.active {background-color: #E6E6CC}
@@ -58,7 +68,7 @@ th.data {
 	color: #000000;
 	background-color: #E6E6CC;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /* 0.9em */
+	font-size: small; /* 0.9em */
 }
 th.data a:active, th.data a:link, th.data a:visited, th.data a:hover {
 	font-weight: bold;
@@ -73,7 +83,7 @@ td.topbar {
 	margin:	0px	0px;
 	padding: 0px;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /*0.8em;*/
+	font-size: small; /*0.8em;*/
 	text-align: left;
 }
 ul.toplink,ul.navlink {
@@ -93,7 +103,7 @@ ul.toplink li:first-child, ul.navlink li:first-child {
 tr.data1, tr.data2, tr.data3 {
 	color: #000000;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /*0.8em;*/
+	font-size: small; /*0.8em;*/
 }
 tr.data1:hover, tr.data2:hover, tr.data3:hover {
 	background-color: #DDD;
@@ -115,7 +125,7 @@ td.opbutton1 {
 	border-left: 1px solid #FFFFFF;
 	cursor:	pointer;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /*0.8em;*/
+	font-size: small; /*0.8em;*/
 	padding-left: 6px;
 	padding-right: 6px;
 	text-align: center;
@@ -128,7 +138,7 @@ td.opbutton2 {
 	border-left: 1px solid #FFFFFF;
 	cursor:	pointer;
 	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /*0.8em;*/
+	font-size: small; /*0.8em;*/
 	padding-left: 6px;
 	padding-right: 6px;
 	text-align: center;
@@ -145,7 +155,7 @@ td.opbutton2 {
 }
 .topbar, .trail, .tab {
 	padding: 2px 1ex;
-	font-size: smaller;
+	font-size: small;
 }
 .trail, .tab {
 	border: 2px solid #E6E6CC;
@@ -215,7 +225,7 @@ a.navlink:active, a.toplink:active, ul.navlink li a:active, ul.toplink li a:acti
 .active a {font-weight: bold}
 a.help {
 	color: #E68800;
-	font-size: smaller;
+	font-size: small;
 	vertical-align: super;
 	text-decoration: none;
 }
@@ -234,7 +244,7 @@ pre.error {
 	background: #eee;
 	border-top: 1px dotted #999;
 	border-left: 1px dotted #999;
-	font-size: smaller;
+	font-size: small;
 }
 
 /** FK browsing **/
@@ -245,22 +255,4 @@ div.fk {
     background: #fff;
 	border-left: 1px solid #000;
 	padding: 5px;
-}
-div.logo {
-	background-color: #CECF9C;
-	margin:	0px;
-	padding: 0px;
-	font-family: arial, tahoma, verdana, helvetica, sans-serif, serif;
-	font-size: smaller; /* 1em; */
-	border: none;
-	border-bottom: 2px solid #000000;
-	margin-bottom: 2px;
-	background-image: url('../../images/themes/default/title.png');
-	background-repeat: none;
-	height: 50px;
-}
-div.logo a {
-	display: block;
-	height: 100%;
-	color: transparent;
 }

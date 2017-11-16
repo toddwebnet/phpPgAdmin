@@ -82,7 +82,7 @@ body.browser {
 	background: #eee;
 	border-top: 1px dotted #999;
 	border-left: 1px dotted #999;
-	font-size: smaller;
+	font-size: small;
 }
 
 /** FK browsing **/
